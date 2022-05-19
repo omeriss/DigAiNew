@@ -2,16 +2,39 @@
 
 DrawingBoard::DrawingBoard()
 {
+	//network2 = new Network({
+	//new FullyConnectedLayer(2025, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 14),
+	//new Sigmoid(14),
+	//	}, 2025, 14, "cool.dat");
+
 	network2 = new Network({
-	new FullyConnectedLayer(2025, 40),
-	new Sigmoid(40),
-	new FullyConnectedLayer(40, 40),
-	new Sigmoid(40),
-	new FullyConnectedLayer(40, 40),
+	new ConvolutionalLayer(45, 45, 1, 3, 3),
+	new Sigmoid(43*43*3),
+	new ConvolutionalLayer(43, 43, 3, 4, 2),
+	new Sigmoid(40 * 40 * 2),
+	new FullyConnectedLayer(40 * 40 * 2, 40),
 	new Sigmoid(40),
 	new FullyConnectedLayer(40, 14),
 	new Sigmoid(14),
-		}, 2025, 14, "cool.dat");
+		}, 2025, 14, "");
+
+	//network2 = new Network({
+	//new FullyConnectedLayer(2025, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 40),
+	//new Sigmoid(40),
+	//new FullyConnectedLayer(40, 14),
+	//new Sigmoid(14),
+	//	}, 2025, 14, "");
+
 	if (UploadFile == "0")
 		network = new NeuralNetwork();
 	else {
@@ -193,13 +216,28 @@ void DrawingBoard::InsertInput3(string path)
 {
 	vector<double*> inputV;
 	vector<int> labelV;
+	//for (int i = 0; i < 14; i++) {
+	//	for (int j = 0; j < 9000; j++) {
+	//		sf::Image img;
+	//		img.loadFromFile(path + "\\" + std::to_string(i) + "\\" + std::to_string(j) + ".jpg");
+	//		double* temp = new double[45 * 45];
+	//		for (int k = 0; k < 45 * 45; k++) {
+	//			int n = 255 - (img.getPixel(k / 45, k % 45).r + img.getPixel(k / 45, k % 45).g + img.getPixel(k / 45, k % 45).b) / 3;
+	//			temp[k] = (double)n / 255;
+	//		}
+	//		cout << i << " " << j << endl;
+	//		inputV.push_back(temp);
+	//		labelV.push_back(i);
+	//	}
+	//}
+
 	for (int i = 0; i < 14; i++) {
 		for (int j = 0; j < 9000; j++) {
 			sf::Image img;
 			img.loadFromFile(path + "\\" + std::to_string(i) + "\\" + std::to_string(j) + ".jpg");
 			double* temp = new double[45 * 45];
 			for (int k = 0; k < 45 * 45; k++) {
-				int n = 255 - (img.getPixel(k / 45, k % 45).r + img.getPixel(k / 45, k % 45).g + img.getPixel(k / 45, k % 45).b) / 3;
+				int n = 255 - (img.getPixel(k % 45, k / 45).r + img.getPixel(k % 45, k / 45).g + img.getPixel(k % 45, k / 45).b) / 3;
 				temp[k] = (double)n / 255;
 			}
 			cout << i << " " << j << endl;
@@ -208,7 +246,7 @@ void DrawingBoard::InsertInput3(string path)
 		}
 	}
 
-	network2->Learn(inputV, labelV,disCostDerivative, 10, 0.5, SetSize, "coolnn.dat");
+	network2->Learn(inputV, labelV,disCostDerivative, 10000, 0.1, SetSize, "coolnn.dat");
 	//if (SaveFile != "0")
 	//network2->SaveToFile(SaveFile);
 	//network->Test(inputV, labelV);

@@ -10,7 +10,7 @@ class Layer
 public:
 	Layer(NetworkType* input, NetworkType* output);
 	Layer(NetworkType* input, size_t outputSize);
-	void SetInput(NetworkType* input);
+	virtual void SetInput(NetworkType* input);
 	NetworkType* GetOutput();
 	virtual void FeedForword() = 0;
 	virtual NetworkType* Backpropagation(NetworkType* outputGradient) = 0;

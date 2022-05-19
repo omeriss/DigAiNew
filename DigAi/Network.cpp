@@ -51,7 +51,8 @@ void Network::Backpropagation(NetworkType* input, int label, std::function<Netwo
 		if (output[i] > output[maxn])
 			maxn = i;
 	}
-	//std::cout << label << " " << maxn << "\n";
+	if(output[maxn] > 0.9)
+		std::cout << label << " " << maxn << "\n";
 
 	int layerCount = layers.size();
 	for (int i = layerCount - 1; i >= 0; i--) {
@@ -84,6 +85,7 @@ void Network::Learn(std::vector<NetworkType*>& input, std::vector<int>& label, s
 			for (auto layer : layers)
 				layer->UpdateByGradient(learnRate, setSize);
 		}
+		SaveNetwork(savePath + std::to_string(t));
 		std::cout << t << std::endl;
 	}
 

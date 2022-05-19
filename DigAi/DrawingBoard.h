@@ -8,6 +8,7 @@
 #include "Network.h"
 #include "FullyConnectedLayer.h"
 #include "ActivationFunction.h"
+#include "ConvolutionalLayer.h"
 
 class DrawingBoard
 {

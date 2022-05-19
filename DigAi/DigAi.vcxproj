@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActivationFunction.cpp" />
+    <ClCompile Include="ConvolutionalLayer.cpp" />
     <ClCompile Include="DrawingBoard.cpp" />
     <ClCompile Include="FullyConnectedLayer.cpp" />
     <ClCompile Include="Layer.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="ActivationFunction.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="ConvolutionalLayer.h" />
     <ClInclude Include="DrawingBoard.h" />
     <ClInclude Include="FullyConnectedLayer.h" />
     <ClInclude Include="Layer.h" />
